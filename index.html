@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Would You Be Forever With Me? ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: #100014;
+    color: white;
+}
+
+/* =========================
+   MAIN LOVE BACKGROUND
+========================= */
+
+.scene {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 50% 45%, #5a123f 0%, #28091f 35%, #100014 75%);
+}
+
+/* Romantic glow */
+.glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #ff247f;
+    filter: blur(150px);
+    opacity: 0.18;
+    animation: glowPulse 4s infinite alternate;
+}
+
+@keyframes glowPulse {
+    from {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.12;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 0.25;
+    }
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.background-hearts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.bg-heart {
+    position: absolute;
+    color: #ff5caa;
+    opacity: 0.2;
+    font-size: 20px;
+    animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart {
+    from {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.3;
+    }
+
+    to {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   QUESTION SCREEN
+========================= */
+
+.question-screen {
+    position: relative;
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    transition: opacity 1s ease;
+}
+
+.question-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.small-heart {
+    font-size: 60px;
+    margin-bottom: 20px;
+
+    animation: heartbeat 1.4s infinite;
+    filter: drop-shadow(0 0 15px #ff247f);
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+.question {
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    max-width: 900px;
+
+    color: #ffd8ec;
+
+    text-shadow:
+        0 0 10px #ff4c9a,
+        0 0 30px #ff187e;
+
+    margin-bottom: 45px;
+    padding: 0 20px;
+}
+
+.question span {
+    color: #ff6bab;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    min-height: 130px;
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    border-radius: 50px;
+
+    padding: 17px 40px;
+
+    transition:
+        transform 0.5s cubic-bezier(.17,.67,.3,1.3),
+        opacity 0.5s,
+        font-size 0.5s,
+        padding 0.5s,
+        box-shadow 0.5s;
+}
+
+.yes {
+    background: linear-gradient(135deg, #ff267f, #ff69ad);
+
+    color: white;
+
+    box-shadow:
+        0 0 20px #ff267f99,
+        0 0 50px #ff267f33;
+
+    transform: scale(1);
+}
+
+.yes:hover {
+    box-shadow:
+        0 0 30px #ff267f,
+        0 0 70px #ff267f66;
+}
+
+.no {
+    background: #3b1930;
+    color: #ffb7d8;
+
+    border: 1px solid #8e426c;
+
+    transform: scale(1);
+}
+
+/* =========================
+   YES RESULT
+========================= */
+
+.proposal-screen {
+    position: absolute;
+    z-index: 50;
+
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 1s ease;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(115, 14, 67, 0.85),
+        rgba(16, 0, 20, 0.97));
+}
+
+.proposal-screen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================
+   BIG HEART
+========================= */
+
+.big-heart {
+    position: relative;
+
+    width: 150px;
+    height: 150px;
+
+    transform: rotate(-45deg);
+
+    background: #ff267f;
+
+    margin-bottom: 90px;
+
+    animation:
+        heartAppear 1.3s cubic-bezier(.17,.67,.3,1.3),
+        heartBeat 1.5s 1.3s infinite;
+
+    box-shadow:
+        0 0 30px #ff267f,
+        0 0 80px #ff267f88;
+}
+
+.big-heart::before,
+.big-heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    background: #ff267f;
+
+    border-radius: 50%;
+}
+
+.big-heart::before {
+    top: -75px;
+    left: 0;
+}
+
+.big-heart::after {
+    left: 75px;
+    top: 0;
+}
+
+@keyframes heartAppear {
+    from {
+        transform: rotate(-45deg) scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: rotate(-45deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(-45deg) scale(1.12);
+    }
+}
+
+/* =========================
+   RING
+========================= */
+
+.ring-container {
+    position: absolute;
+
+    top: 48%;
+
+    transform: translateY(-50%) scale(0);
+
+    width: 150px;
+    height: 150px;
+
+    animation: ringAppear 1.5s 1.2s forwards;
+
+    z-index: 10;
+}
+
+@keyframes ringAppear {
+    0% {
+        transform: translateY(-50%) scale(0) rotate(-20deg);
+    }
+
+    70% {
+        transform: translateY(-50%) scale(1.2) rotate(10deg);
+    }
+
+    100% {
+        transform: translateY(-50%) scale(1) rotate(0deg);
+    }
+}
+
+/* Ring band */
+
+.ring {
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    border: 13px solid #ffd36b;
+
+    border-radius: 50%;
+
+    left: 30px;
+    top: 45px;
+
+    box-shadow:
+        0 0 10px #ffd36b,
+        inset 0 0 8px #fff0a6;
+}
+
+/* Ring diamond */
+
+.diamond {
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #dff8ff,
+        #ffffff
+    );
+
+    transform: rotate(45deg);
+
+    top: 22px;
+    left: 56px;
+
+    border: 3px solid #fff;
+
+    box-shadow:
+        0 0 15px #ffffff,
+        0 0 35px #9deaff;
+}
+
+.diamond::before,
+.diamond::after {
+    content: "";
+
+    position: absolute;
+
+    background: rgba(255,255,255,0.7);
+}
+
+.diamond::before {
+    width: 2px;
+    height: 42px;
+    left: 16px;
+    top: -4px;
+}
+
+.diamond::after {
+    height: 2px;
+    width: 42px;
+    left: -4px;
+    top: 16px;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.love-message {
+    position: absolute;
+
+    bottom: 11%;
+
+    width: 100%;
+
+    text-align: center;
+
+    opacity: 0;
+
+    animation: messageAppear 1.5s 2s forwards;
+
+    padding: 0 20px;
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.love-message h2 {
+    font-size: clamp(2rem, 6vw, 4rem);
+
+    color: #ffb9dc;
+
+    text-shadow:
+        0 0 15px #ff267f,
+        0 0 40px #ff267f66;
+
+    margin-bottom: 15px;
+}
+
+.love-message p {
+    color: #ffe3f2;
+
+    font-size: clamp(1rem, 3vw, 1.4rem);
+}
+
+/* =========================
+   CONFETTI / SPARKLES
+========================= */
+
+.sparkle-container {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+
+    z-index: 100;
+}
+
+.sparkle {
+    position: absolute;
+
+    color: #fff;
+
+    font-size: 25px;
+
+    animation: sparkleFall 3s linear forwards;
+}
+
+@keyframes sparkleFall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .question {
+        font-size: 2.2rem;
+        margin-bottom: 35px;
+    }
+
+    .buttons {
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 14px 27px;
+        font-size: 1rem;
+    }
+
+    .big-heart {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 70px;
+    }
+
+    .big-heart::before,
+    .big-heart::after {
+        width: 110px;
+        height: 110px;
+    }
+
+    .big-heart::before {
+        top: -55px;
+    }
+
+    .big-heart::after {
+        left: 55px;
+    }
+
+    .ring-container {
+        transform-origin: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="glow"></div>
+
+    <!-- Floating background hearts -->
+    <div class="background-hearts" id="backgroundHearts"></div>
+
+    <!-- QUESTION -->
+    <div class="question-screen" id="questionScreen">
+
+        <div class="small-heart">❤️</div>
+
+        <h1 class="question">
+            Would you be <span>forever</span> with me?
+        </h1>
+
+        <div class="buttons">
+
+            <button
+                class="btn yes"
+                id="yesButton"
+                onclick="sayYes()">
+                Yes ❤️
+            </button>
+
+            <button
+                class="btn no"
+                id="noButton"
+                onclick="sayNo()">
+                No
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- PROPOSAL RESULT -->
+    <div class="proposal-screen" id="proposalScreen">
+
+        <!-- Heart -->
+        <div class="big-heart"></div>
+
+        <!-- Ring -->
+        <div class="ring-container">
+
+            <div class="ring"></div>
+
+            <div class="diamond"></div>
+
+        </div>
+
+        <!-- Message -->
+        <div class="love-message">
+
+            <h2>
+                Yeeee i knew you'd click yes :3 ❤️
+            </h2>
+
+            <p>
+                I guess you're stuck with me forever now. 💍💕
+            </p>
+
+        </div>
+
+        <div
+            class="sparkle-container"
+            id="sparkles">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   BACKGROUND HEARTS
+========================= */
+
+function createBackgroundHearts() {
+
+    const container =
+        document.getElementById("backgroundHearts");
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💞"
+    ];
+
+    for (let i = 0; i < 25; i++) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "bg-heart";
+
+        heart.innerHTML =
+            hearts[Math.floor(Math.random() * hearts.length)];
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+        heart.style.fontSize =
+            (12 + Math.random() * 28) + "px";
+
+        heart.style.animationDuration =
+            (7 + Math.random() * 8) + "s";
+
+        heart.style.animationDelay =
+            Math.random() * 8 + "s";
+
+        container.appendChild(heart);
+    }
+}
+
+createBackgroundHearts();
+
+
+/* =========================
+   NO BUTTON LOGIC
+========================= */
+
+let noClicks = 0;
+
+function sayNo() {
+
+    noClicks++;
+
+    const yes =
+        document.getElementById("yesButton");
+
+    const no =
+        document.getElementById("noButton");
+
+    /*
+       Every time she clicks NO:
+       YES gets bigger
+       NO gets smaller
+    */
+
+    const yesScale =
+        1 + (noClicks * 0.35);
+
+    const noScale =
+        Math.max(
+            0,
+            1 - (noClicks * 0.18)
+        );
+
+    yes.style.transform =
+        `scale(${yesScale})`;
+
+    no.style.transform =
+        `scale(${noScale})`;
+
+    no.style.opacity =
+        Math.max(
+            0,
+            1 - (noClicks * 0.15)
+        );
+
+    /*
+       Make YES increasingly more obvious
+    */
+
+    yes.style.boxShadow =
+        `0 0 ${20 + noClicks * 8}px #ff267f,
+         0 0 ${40 + noClicks * 15}px #ff267f66`;
+
+    /*
+       Eventually remove NO
+    */
+
+    if (noClicks >= 6) {
+
+        no.style.transform =
+            "scale(0)";
+
+        no.style.opacity =
+            "0";
+
+        no.style.pointerEvents =
+            "none";
+    }
+}
+
+
+/* =========================
+   YES BUTTON
+========================= */
+
+function sayYes() {
+
+    const questionScreen =
+        document.getElementById("questionScreen");
+
+    const proposalScreen =
+        document.getElementById("proposalScreen");
+
+    questionScreen.classList.add("hide");
+
+    setTimeout(() => {
+
+        proposalScreen.classList.add("show");
+
+        createSparkles();
+
+    }, 700);
+}
+
+
+/* =========================
+   SPARKLES
+========================= */
+
+function createSparkles() {
+
+    const container =
+        document.getElementById("sparkles");
+
+    const symbols = [
+        "✨",
+        "💖",
+        "💕",
+        "❤️",
+        "💍",
+        "✦",
+        "♥"
+    ];
+
+    for (let i = 0; i < 70; i++) {
+
+        const sparkle =
+            document.createElement("div");
+
+        sparkle.className =
+            "sparkle";
+
+        sparkle.innerHTML =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+        sparkle.style.left =
+            Math.random() * 100 + "%";
+
+        sparkle.style.fontSize =
+            (12 + Math.random() * 25) + "px";
+
+        sparkle.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        sparkle.style.animationDuration =
+            (2.5 + Math.random() * 2.5) + "s";
+
+        container.appendChild(sparkle);
+    }
+}
+
+</script>
+
+</body>
+</html>
